@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Otakudesu Api onsydesu</title>
+</head>
+<body>
+  <h1>Otakudesu Api onsydesu</h1>
+  <p>An UNOFFICIAL rest API for <a href="https://otakudesu.cloud">otakudesu</a>. Otakudesu is a web that provides anime with Indonesian subtitle.</p>
+
+  <h2>Quick Documentation</h2>
+  <table>
+    <tr>
+      <th>End Point</th>
+      <th>Method</th>
+      <th>Params</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+    <tr>
+      <td>/v1/home</td>
+      <td>GET</td>
+      <td>-</td>
+      <td>returns latest ongoing anime update & currently finished anime resources</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/home">/v1/home</a></td>
+    </tr>
+    <tr>
+      <td>/v1/ongoing-anime/:page</td>
+      <td>GET</td>
+      <td>- page (opt, number)</td>
+      <td>returns ongoing anime resources</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/ongoing-anime">/v1/ongoing-anime</a></td>
+    </tr>
+    <tr>
+      <td>/v1/complete-anime/:page</td>
+      <td>GET</td>
+      <td>- page (opt, number)</td>
+      <td>returns finished anime resources</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/complete-anime/10">/v1/complete-anime/10</a></td>
+    </tr>
+    <tr>
+      <td>/v1/search/:keyword</td>
+      <td>GET</td>
+      <td>- keyword (required, string)</td>
+      <td>returns anime search results from the given keyword</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/search/Hibike%20Euphonium">/v1/search/Hibike Euphonium</a></td>
+    </tr>
+    <tr>
+      <td>/v1/anime/:slug</td>
+      <td>GET</td>
+      <td>- slug (required, string)</td>
+      <td>returns single anime resource</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/anime/kuzu-honkai-subtitle-indonesia">/v1/anime/kuzu-honkai-subtitle-indonesia</a></td>
+    </tr>
+    <tr>
+      <td>/v1/anime/:slug/episodes</td>
+      <td>GET</td>
+      <td>- slug (required, string)</td>
+      <td>returns anime episode lists resource (the /anime/:slug endpoint's also return the anime episode lists)</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/anime/kuzu-honkai-subtitle-indonesia/episodes">/v1/anime/kuzu-honkai-subtitle-indonesia/episodes</a></td>
+    </tr>
+    <tr>
+      <td>/v1/anime/:slug/episodes/:episode</td>
+      <td>GET</td>
+      <td>- slug (required, string)<br>- episode (required, number)</td>
+      <td>returns episode resource (with stream url and download urls)</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/anime/kuzu-honkai-subtitle-indonesia/episodes/1">/v1/anime/kuzu-honkai-subtitle-indonesia/episodes/1</a></td>
+    </tr>
+    <tr>
+      <td>/v1/episode/:slug</td>
+      <td>GET</td>
+      <td>- slug (required, string)</td>
+      <td>returns single episode data by the episode's slug</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/episode/kzhnkai-episode-1-sub-indo">/v1/episode/kzhnkai-episode-1-sub-indo</a></td>
+    </tr>
+    <tr>
+      <td>/v1/genres</td>
+      <td>GET</td>
+      <td>-</td>
+      <td>returns genre lists resource</td>
+     <td><a href="https://onsydesu-api.vercel.app/v1/genres">/v1/genres</a></td>
+    </tr>
+    <tr>
+      <td>/v1/genres/:slug</td>
+      <td>GET</td>
+      <td>- slug (required, string)</td>
+      <td>returns anime lists by the genre's slug</td>
+      <td><a href="https://onsydesu-api.vercel.app/v1/genres/sports">/v1/genres/sports</a></td>
+    </tr>
+  </table>
+
+  <h2>Response Example</h2>
+  <pre>
+{
+  "status": "Ok",
+  "data": {
+    // ... previous properties
+    "download_urls": {
+      "mp4": [
+        {
+          "resolution": "360p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWlpJam9XQkY1ajBwY25zVk9ZcWlIalJnZlk4SzdualMvU2J0T0tCd0k3OFZZdHNsWnpnPT0="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFdBbVMzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlZoSGpNVWZKSytEazBVUk9nPT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnN2VKQ3RrREgwVjUxZGRpMVo="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3YnZzOWxOUG03b1hSS0NQK1ZzVUxmYUxCOVRDMU13Y3RDa3R4TnhjTVFZVCsyRzZmNDQ5T2tOV3ZrY2QvMWd5aTd3K2FMUnc9PQ=="
+            }
+          ]
+        },
+        {
+          "resolution": "480p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWWZkejdRUkZ3aFZGVmpkSUZMNlNGejBGR0djV2hpaVhVV2FNTFlSTU41bzRlcXRCWQ=="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFJER1MzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlVoTWo5b2ZMcXFKMlFVZk5BPT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnSENNMlFuajdlSGFOcFhRc3c="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3Yng5eHVIcUdyMWxWS0s4VEVnZ0hHZm9wOE1EeFkxY1FEcVlnRTVMQXZjUVdkRWVXKzArdlVTRS9aYzlUNHNncW14ZnlBUnc9PQ=="
+            }
+          ]
+        },
+        {
+          "resolution": "720p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWVpvam9XQkY1ajBwY25zVk9ZcWlIalJnZlk1NjhrVG04YWFoS0tCd0k3OFZZdHNsWnpnPT0="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFNCbVMzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlE5TXo0UkNPYXFaaFUwZUp3PT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnT0FwQ1FuaVBWU3MxcWFpc0Y="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3Ym00NUhmS083a1daS091K0QxQkQ5ZkxKb0trZ3U5c1V4dU5odDZOWWRYaVNQS0pmOTMrRFhUMDdaVE5qSHZYK2k4WXVGSEE9PQ=="
+            }
+          ]
+        }
+      ],
+      "mkv": [
+        {
+          "resolution": "360p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWlpJam9XQkY1ajBwY25zVk9ZcWlIalJnZlk4SzdualMvU2J0T0tCd0k3OFZZdHNsWnpnPT0="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFdBbVMzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlZoSGpNVWZKSytEazBVUk9nPT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnN2VKQ3RrREgwVjUxZGRpMVo="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3YnZzOWxOUG03b1hSS0NQK1ZzVUxmYUxCOVRDMU13Y3RDa3R4TnhjTVFZVCsyRzZmNDQ5T2tOV3ZrY2QvMWd5aTd3K2FMUnc9PQ=="
+            }
+          ]
+        },
+        {
+          "resolution": "480p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWWZkejdRUkZ3aFZGVmpkSUZMNlNGejBGR0djV2hpaVhVV2FNTFlSTU41bzRlcXRCWQ=="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFJER1MzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlVoTWo5b2ZMcXFKMlFVZk5BPT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnSENNMlFuajdlSGFOcFhRc3c="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3Yng5eHVIcUdyMWxWS0s4VEVnZ0hHZm9wOE1EeFkxY1FEcVlnRTVMQXZjUVdkRWVXKzArdlVTRS9aYzlUNHNncW14ZnlBUnc9PQ=="
+            }
+          ]
+        },
+        {
+          "resolution": "720p",
+          "urls": [
+            {
+              "provider": "ZippyShare",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFEWVpvam9XQkY1ajBwY25zVk9ZcWlIalJnZlk1NjhrVG04YWFoS0tCd0k3OFZZdHNsWnpnPT0="
+            },
+            {
+              "provider": "LetsUp",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lJelZPZUp0YitYZ0J0MkZwYjBJVVRMZnlIejNnZExjeUNnaEQvV3FWdmNnQVV5ODhZODVBRWs5bFNCbVMzYkw3NXBBPT0="
+            },
+            {
+              "provider": "Racaty",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lXeVVTTUo5KzhYd1I5MlE5TXo0UkNPYXFaaFUwZUp3PT0="
+            },
+            {
+              "provider": "Solidfiles",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lUMzFERElNbitXQVZ2bjFWUmpKbElJNmJIbGhnT0FwQ1FuaVBWU3MxcWFpc0Y="
+            },
+            {
+              "provider": "Mega",
+              "url": "https://desudrive.com/link/?id=eVYzczJaUk9LU0lKelVDTWZjam9IZ2RnbWx3Ym00NUhmS083a1daS091K0QxQkQ5ZkxKb0trZ3U5c1V4dU5odDZOWWRYaVNQS0pmOTMrRFhUMDdaVE5qSHZYK2k4WXVGSEE9PQ=="
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+</pre>
+</body>
+</html>
